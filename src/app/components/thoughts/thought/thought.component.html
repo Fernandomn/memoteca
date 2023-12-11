@@ -1,0 +1,20 @@
+<div class="pensamento {{ thought.model }} ff-roboto-mono pensamento-p">
+  <img
+    src="/assets/imagens/{{ thought.model }}.png"
+    alt="ASpas coloridas"
+    srcset=""
+  />
+  <p class="conteudo">{{ thought.content }}</p>
+  <p class="conteudo">
+    <b>{{ thought.author }}</b>
+  </p>
+
+  <div class="acoes">
+    <button class="botao-editar">
+      <img src="/assets/imagens/icone-editar.png" alt="editar" srcset="" />
+    </button>
+    <button class="botao-excluir">
+      <img src="/assets/imagens/icone-excluir.png" alt="excluir" srcset="" />
+    </button>
+  </div>
+</div>
