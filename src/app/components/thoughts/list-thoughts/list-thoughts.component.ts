@@ -7,5 +7,16 @@ import { Thought } from 'src/app/interfaces/thoughts';
   styleUrls: ['./list-thoughts.component.css'],
 })
 export class ListThoughtsComponent {
-  listThoughts: Thought[] = [];
+  listThoughts: Thought[] = [
+    {
+      content: 'Passo informações para o componente filho',
+      author: 'Componente pai',
+      model: 'modelo1',
+    },
+    {
+      content: 'Minha propriedade é decorada com @Input()',
+      author: 'Componente filho',
+      model: 'modelo2',
+    },
+  ];
 }
