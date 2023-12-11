@@ -11,7 +11,7 @@ export class CreateThoughtComponent {
     id: '1',
     content: 'aprendendo Angular',
     author: 'Dev',
-    model: '',
+    model: 'modelo1',
   };
 
   createThougth() {
