@@ -31,9 +31,10 @@
       <div class="radio-modelo">
         <label for="model1">
           <input
+            id="model1"
             type="radio"
             name="model-card"
-            id="model1"
+            value="modelo1"
             [(ngModel)]="thought.model"
           />
           <div class="custom-radio">
@@ -61,6 +62,7 @@
             type="radio"
             name="model-card"
             id="model2"
+            value="modelo2"
             [(ngModel)]="thought.model"
           />
           <div class="custom-radio">
@@ -88,6 +90,7 @@
             type="radio"
             name="model-card"
             id="model3"
+            value="modelo3"
             [(ngModel)]="thought.model"
           />
           <div class="custom-radio">
@@ -112,7 +115,7 @@
 
     <div class="acoes">
       <button class="botao" (click)="createThougth()">Salvar</button>
-      <button class="botao" routerLink="/listarPensamento">cancelar</button>
+      <button class="botao" (click)="cancel()">cancelar</button>
     </div>
   </form>
 </section>

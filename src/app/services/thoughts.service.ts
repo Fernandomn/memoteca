@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Thought } from '../interfaces/thoughts';
 
 @Injectable({
@@ -10,7 +11,11 @@ export class ThoughtsService {
 
   constructor(private http: HttpClient) {}
 
-  listQuotes() {
+  listQuotes(): Observable<Thought[]> {
     return this.http.get<Thought[]>(this.apiUrl);
+  }
+
+  createThought(thought: Thought): Observable<Thought> {
+    return this.http.post<Thought>(this.apiUrl, thought);
   }
 }

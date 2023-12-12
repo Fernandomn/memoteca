@@ -8,7 +8,7 @@ import { Thought } from 'src/app/interfaces/thoughts';
 })
 export class ThoughtComponent {
   @Input() thought: Thought = {
-    id: 0,
+    id: '',
     content: 'I love Angular',
     author: 'Nay',
     model: 'modelo3',
