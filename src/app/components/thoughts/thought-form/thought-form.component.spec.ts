@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateThoughtComponent } from './create-thought.component';
+import { ThoughtFormComponent } from './thought-form.component';
 
 describe('CreateThoughtComponent', () => {
-  let component: CreateThoughtComponent;
-  let fixture: ComponentFixture<CreateThoughtComponent>;
+  let component: ThoughtFormComponent;
+  let fixture: ComponentFixture<ThoughtFormComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateThoughtComponent]
+      declarations: [ThoughtFormComponent]
     });
-    fixture = TestBed.createComponent(CreateThoughtComponent);
+    fixture = TestBed.createComponent(ThoughtFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

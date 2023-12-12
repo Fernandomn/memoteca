@@ -22,7 +22,7 @@ export class ExcludeThoughtComponent implements OnInit {
 
     if (id) {
       this.thoughtService
-        .getThought(id)
+        .getThoughtById(id)
         .subscribe((thought: Thought) => (this.thought = thought));
     }
   }

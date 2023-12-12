@@ -48,6 +48,43 @@
   margin: 0.5rem 0 2rem;
 }
 
+.editar-pensamentos {
+  padding: 2rem 0;
+}
+
+.editar-pensamentos form {
+  background: #c4edff;
+
+  border: none;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 2rem;
+}
+
+.editar-pensamentos form label {
+  color: #154580;
+  font-weight: bold;
+  margin: 0 0 1rem;
+}
+
+.editar-pensamentos form .input {
+  border: none;
+  height: 40px;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  margin: 0.5rem 0 2rem;
+}
+
+.editar-pensamentos form .textarea {
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  margin: 0.5rem 0 2rem;
+}
+
 .container-radio {
   display: flex;
   gap: 2.5rem;

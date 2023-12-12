@@ -15,7 +15,7 @@ export class ThoughtsService {
     return this.http.get<Thought[]>(this.apiUrl);
   }
 
-  getThought(id: string): Observable<Thought> {
+  getThoughtById(id: string): Observable<Thought> {
     const url = `${this.apiUrl}/${id}`;
 
     return this.http.get<Thought>(url);

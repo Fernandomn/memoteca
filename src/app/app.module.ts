@@ -7,9 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { CreateThoughtComponent } from './components/thoughts/create-thought/create-thought.component';
 import { ExcludeThoughtComponent } from './components/thoughts/exclude-thought/exclude-thought.component';
 import { ListThoughtsComponent } from './components/thoughts/list-thoughts/list-thoughts.component';
+import { ThoughtFormComponent } from './components/thoughts/thought-form/thought-form.component';
 import { ThoughtComponent } from './components/thoughts/thought/thought.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { ThoughtComponent } from './components/thoughts/thought/thought.componen
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    CreateThoughtComponent,
+    ThoughtFormComponent,
     ListThoughtsComponent,
     ThoughtComponent,
     ExcludeThoughtComponent,

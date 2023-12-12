@@ -1,7 +1,7 @@
-<section class="container criar-pensamentos ff-inter">
+<section class="container ff-inter" [ngClass]="thoughtActionClass()">
   <header class="header">
     <h2>
-      Adiciona um <br />
+      {{ thought.id ? "Editar" : "Adicionar" }} um <br />
       pensamento novo:
     </h2>
   </header>
@@ -114,7 +114,12 @@
     </div>
 
     <div class="acoes">
-      <button class="botao" (click)="createThougth()">Salvar</button>
+      <button *ngIf="thought.id" class="botao" (click)="editThougth()">
+        Editar
+      </button>
+      <button *ngIf="!thought.id" class="botao" (click)="createThougth()">
+        Salvar
+      </button>
       <button class="botao" (click)="cancel()">cancelar</button>
     </div>
   </form>
