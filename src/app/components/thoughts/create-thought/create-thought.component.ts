@@ -8,7 +8,7 @@ import { Thought } from 'src/app/interfaces/thoughts';
 })
 export class CreateThoughtComponent {
   thought: Thought = {
-    id: '1',
+    id: 1,
     content: 'aprendendo Angular',
     author: 'Dev',
     model: 'modelo1',

@@ -1,7 +1,7 @@
 export interface Thought {
-  content?: string;
-  author?: string;
-  id?: string;
+  id: number;
+  content: string;
+  author: string;
   model: Model;
 }
 
