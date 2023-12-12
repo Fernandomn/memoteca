@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExcludeThoughtsComponent } from './exclude-thoughts.component';
+import { ExcludeThoughtComponent } from './exclude-thought.component';
 
 describe('ExcludeThoughtsComponent', () => {
-  let component: ExcludeThoughtsComponent;
-  let fixture: ComponentFixture<ExcludeThoughtsComponent>;
+  let component: ExcludeThoughtComponent;
+  let fixture: ComponentFixture<ExcludeThoughtComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ExcludeThoughtsComponent]
+      declarations: [ExcludeThoughtComponent]
     });
-    fixture = TestBed.createComponent(ExcludeThoughtsComponent);
+    fixture = TestBed.createComponent(ExcludeThoughtComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

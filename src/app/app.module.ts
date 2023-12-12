@@ -8,9 +8,9 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CreateThoughtComponent } from './components/thoughts/create-thought/create-thought.component';
+import { ExcludeThoughtComponent } from './components/thoughts/exclude-thought/exclude-thought.component';
 import { ListThoughtsComponent } from './components/thoughts/list-thoughts/list-thoughts.component';
 import { ThoughtComponent } from './components/thoughts/thought/thought.component';
-import { ExcludeThoughtsComponent } from './components/thoughts/exclude-thoughts/exclude-thoughts.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { ExcludeThoughtsComponent } from './components/thoughts/exclude-thoughts
     CreateThoughtComponent,
     ListThoughtsComponent,
     ThoughtComponent,
-    ExcludeThoughtsComponent,
+    ExcludeThoughtComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
