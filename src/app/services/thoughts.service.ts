@@ -11,11 +11,23 @@ export class ThoughtsService {
 
   constructor(private http: HttpClient) {}
 
-  listQuotes(): Observable<Thought[]> {
+  listThoughts(): Observable<Thought[]> {
     return this.http.get<Thought[]>(this.apiUrl);
+  }
+
+  getThought(id: string): Observable<Thought> {
+    const url = `${this.apiUrl}/${id}`;
+
+    return this.http.get<Thought>(url);
   }
 
   createThought(thought: Thought): Observable<Thought> {
     return this.http.post<Thought>(this.apiUrl, thought);
+  }
+
+  deleteThougth(id: string): Observable<Thought> {
+    const url = `${this.apiUrl}/${id}`;
+
+    return this.http.delete<Thought>(url);
   }
 }
