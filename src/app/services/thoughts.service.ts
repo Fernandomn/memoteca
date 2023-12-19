@@ -14,7 +14,9 @@ export class ThoughtsService {
   listThoughts(page: number = 1): Observable<Thought[]> {
     //GET /posts?_page=7&_limit=20
     const itensPerPage = 6;
-    let params = new HttpParams().set('_set', page).set('_limit', itensPerPage);
+    let params = new HttpParams()
+      .set('_page', page)
+      .set('_limit', itensPerPage);
 
     return this.http.get<Thought[]>(this.apiUrl, { params });
   }
