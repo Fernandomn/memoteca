@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Thought } from 'src/app/interfaces/thoughts';
 import { ThoughtsService } from 'src/app/services/thoughts.service';
@@ -30,32 +30,53 @@ export class ThoughtFormComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.thoughtService
-        .getThoughtById(id)
-        .subscribe((thought: Thought) => (this.thought = thought));
+      this.thoughtService.getThoughtById(id).subscribe((thought: Thought) => {
+        this.thought = thought;
+        this.createForm();
+      });
+    } else {
+      this.createForm();
     }
+  }
 
+  private createForm() {
     this.form = this.formBuilder.group({
-      content: ['Formulário Reativo'],
-      author: [''],
-      model: ['modelo1'],
+      content: [
+        this.thought.content,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/(.|\s)*\S(.|\s)*/),
+        ]),
+      ],
+      author: [
+        this.thought.author,
+        Validators.compose([Validators.required, Validators.minLength(2)]),
+      ],
+      model: [this.thought.model],
     });
   }
 
   thoughtActionClass(): string {
-    return this.thought.id ? 'editar-pensamentos' : 'criar-pensamentos';
+    // return this.thought.id ? 'editar-pensamentos' : 'criar-pensamentos';
+    return 'criar-pensamentos';
   }
 
   createThougth() {
-    this.thought.id = uuidv4();
-    this.thoughtService.createThought(this.thought).subscribe((result) => {
-      console.log(result);
-      this.router.navigate(['/listarPensamento']);
-    });
+    // this.thought.id = uuidv4();
+    console.log(this.form.status);
+
+    if (this.form.valid) {
+      this.thoughtService
+        .createThought({ ...this.form.value, id: uuidv4() })
+        .subscribe((result) => {
+          console.log(result);
+          this.router.navigate(['/listarPensamento']);
+        });
+    }
   }
 
   editThougth() {
-    this.thoughtService.editThought(this.thought).subscribe((result) => {
+    this.thoughtService.editThought(this.form.value).subscribe((result) => {
       console.log(result);
       this.router.navigate(['/listarPensamento']);
     });
@@ -63,5 +84,9 @@ export class ThoughtFormComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/listarPensamento']);
+  }
+
+  enableButton(): string {
+    return this.form.valid ? 'botao' : 'botao__desabilitado';
   }
 }
