@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Thought } from 'src/app/interfaces/thoughts';
 import { ThoughtsService } from 'src/app/services/thoughts.service';
 import { v4 as uuidv4 } from 'uuid';
+import { lowCaseValidator } from '../lowCaseValidators';
 
 @Component({
   selector: 'app-thought-form',
@@ -50,19 +51,21 @@ export class ThoughtFormComponent implements OnInit {
       ],
       author: [
         this.thought.author,
-        Validators.compose([Validators.required, Validators.minLength(2)]),
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(2),
+          lowCaseValidator,
+        ]),
       ],
       model: [this.thought.model],
     });
   }
 
   thoughtActionClass(): string {
-    // return this.thought.id ? 'editar-pensamentos' : 'criar-pensamentos';
-    return 'criar-pensamentos';
+    return this.thought.id ? 'editar-pensamentos' : 'criar-pensamentos';
   }
 
   createThougth() {
-    // this.thought.id = uuidv4();
     console.log(this.form.status);
 
     if (this.form.valid) {
@@ -76,10 +79,12 @@ export class ThoughtFormComponent implements OnInit {
   }
 
   editThougth() {
-    this.thoughtService.editThought(this.form.value).subscribe((result) => {
-      console.log(result);
-      this.router.navigate(['/listarPensamento']);
-    });
+    this.thoughtService
+      .editThought({ ...this.form.value, id: this.thought.id })
+      .subscribe((result) => {
+        console.log(result);
+        this.router.navigate(['/listarPensamento']);
+      });
   }
 
   cancel() {
