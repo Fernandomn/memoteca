@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Thought } from 'src/app/interfaces/thoughts';
 import { ThoughtsService } from 'src/app/services/thoughts.service';
@@ -17,10 +18,13 @@ export class ThoughtFormComponent implements OnInit {
     model: 'modelo1',
   };
 
+  form!: FormGroup;
+
   constructor(
     private thoughtService: ThoughtsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -30,13 +34,16 @@ export class ThoughtFormComponent implements OnInit {
         .getThoughtById(id)
         .subscribe((thought: Thought) => (this.thought = thought));
     }
+
+    this.form = this.formBuilder.group({
+      content: ['Formulário Reativo'],
+      author: [''],
+      model: ['modelo1'],
+    });
   }
 
   thoughtActionClass(): string {
-    if (this.thought.id) {
-      return 'editar-pensamentos';
-    }
-    return 'criar-pensamentos';
+    return this.thought.id ? 'editar-pensamentos' : 'criar-pensamentos';
   }
 
   createThougth() {
