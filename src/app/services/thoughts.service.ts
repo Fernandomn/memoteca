@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Thought } from '../interfaces/thoughts';
@@ -11,8 +11,12 @@ export class ThoughtsService {
 
   constructor(private http: HttpClient) {}
 
-  listThoughts(): Observable<Thought[]> {
-    return this.http.get<Thought[]>(this.apiUrl);
+  listThoughts(page: number = 1): Observable<Thought[]> {
+    //GET /posts?_page=7&_limit=20
+    const itensPerPage = 6;
+    let params = new HttpParams().set('_set', page).set('_limit', itensPerPage);
+
+    return this.http.get<Thought[]>(this.apiUrl, { params });
   }
 
   getThoughtById(id: string): Observable<Thought> {
