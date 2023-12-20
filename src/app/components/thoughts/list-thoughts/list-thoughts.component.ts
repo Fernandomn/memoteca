@@ -10,7 +10,6 @@ import { ThoughtsService } from 'src/app/services/thoughts.service';
 })
 export class ListThoughtsComponent implements OnInit, OnDestroy {
   listThoughts: Thought[] = [];
-  listFavorites: Thought[] = [];
   currentPage = 1;
   hasMoreThoughts: boolean = true;
   filter: string = '';
@@ -28,13 +27,18 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
     this.$onDestroy.complete();
   }
 
+  getListFavorites() {
+    this.shouldListFavorites = !this.shouldListFavorites;
+    this.searchThoughts();
+  }
+
   searchThoughts() {
     this.resetSearch();
     this.thoughtService
       .listThoughts(this.currentPage++, this.filter, this.shouldListFavorites)
       .pipe(takeUntil(this.$onDestroy))
       .subscribe((resultListThoughts) => {
-        this.listThoughts = resultListThoughts;
+        this.listThoughts = [...resultListThoughts];
       });
   }
 
@@ -52,9 +56,10 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
       });
   }
 
-  getListFavorites() {
-    this.shouldListFavorites = !this.shouldListFavorites;
-    this.searchThoughts();
+  onFavoriteUpdated(thought: Thought): void {
+    if (this.shouldListFavorites && !thought.favorite) {
+      this.listThoughts.splice(this.listThoughts.indexOf(thought), 1);
+    }
   }
 
   private resetSearch() {

@@ -27,7 +27,10 @@
 
   <div class="mural" *ngIf="listThoughts.length > 0; else noThoughts">
     <div *ngFor="let thought of listThoughts">
-      <app-thought [thought]="thought"></app-thought>
+      <app-thought
+        [thought]="thought"
+        (favoriteUpdated)="onFavoriteUpdated($event)"
+        ></app-thought>
     </div>
   </div>
 </section>

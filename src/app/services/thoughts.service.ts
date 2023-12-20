@@ -54,7 +54,7 @@ export class ThoughtsService {
     return this.http.delete<Thought>(url);
   }
 
-  changeFavoriteThought(thought: Thought): Observable<Thought> {
+  updateFavoriteThought(thought: Thought): Observable<Thought> {
     thought.favorite = !thought.favorite;
     return this.editThought(thought);
   }

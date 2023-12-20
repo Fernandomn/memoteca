@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Thought } from 'src/app/interfaces/thoughts';
 import { ThoughtsService } from 'src/app/services/thoughts.service';
 
@@ -16,7 +16,7 @@ export class ThoughtComponent {
     favorite: false,
   };
 
-  @Input() listFavorites: Thought[] = [];
+  @Output() favoriteUpdated = new EventEmitter();
 
   constructor(private thoughtService: ThoughtsService) {}
 
@@ -30,7 +30,9 @@ export class ThoughtComponent {
     return this.thought.favorite ? 'ativo' : 'inativo';
   }
 
-  changeFavorite(): void {
-    this.thoughtService.changeFavoriteThought(this.thought).subscribe();
+  updateFavorite(): void {
+    this.thoughtService
+      .updateFavoriteThought(this.thought)
+      .subscribe(() => this.favoriteUpdated.emit(this.thought));
   }
 }
