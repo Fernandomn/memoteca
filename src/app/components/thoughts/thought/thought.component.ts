@@ -24,6 +24,6 @@ export class ThoughtComponent {
   }
 
   changeFavoriteIcon(): string {
-    return !this.thought.favorite ? 'inativo' : 'ativo';
+    return this.thought.favorite ? 'ativo' : 'inativo';
   }
 }
