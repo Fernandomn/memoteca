@@ -11,6 +11,7 @@ export class ListThoughtsComponent implements OnInit {
   listThoughts: Thought[] = [];
   currentPage = 1;
   hasMoreThoughts: boolean = true;
+  filter: string = '';
 
   constructor(private thoughtService: ThoughtsService) {}
 
