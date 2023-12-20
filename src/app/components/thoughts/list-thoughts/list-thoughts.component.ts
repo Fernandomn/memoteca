@@ -13,6 +13,7 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
   currentPage = 1;
   hasMoreThoughts: boolean = true;
   filter: string = '';
+  shouldListFavorites: boolean = false;
   $onDestroy = new Subject<boolean>();
 
   constructor(private thoughtService: ThoughtsService) {}
@@ -29,7 +30,7 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
   searchThoughts() {
     this.resetSearch();
     this.thoughtService
-      .listThoughts(this.currentPage++, this.filter)
+      .listThoughts(this.currentPage++, this.filter, this.shouldListFavorites)
       .pipe(takeUntil(this.$onDestroy))
       .subscribe((resultListThoughts) => {
         this.listThoughts = resultListThoughts;
@@ -38,7 +39,7 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
 
   loadMoreThougths() {
     this.thoughtService
-      .listThoughts(this.currentPage++, this.filter)
+      .listThoughts(this.currentPage++, this.filter, this.shouldListFavorites)
       .pipe(takeUntil(this.$onDestroy))
 
       .subscribe((resultListThoughts) => {
@@ -51,13 +52,8 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
   }
 
   listFavorites() {
-    this.resetSearch();
-    this.thoughtService
-      .listFavoriteThougths(this.currentPage, this.filter)
-      .pipe(takeUntil(this.$onDestroy))
-      .subscribe(
-        (listFavoriteThoughts) => (this.listThoughts = listFavoriteThoughts)
-      );
+    this.shouldListFavorites = !this.shouldListFavorites;
+    this.searchThoughts();
   }
 
   private resetSearch() {

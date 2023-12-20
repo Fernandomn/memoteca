@@ -14,13 +14,19 @@ export class ThoughtsService {
   listThoughts(
     page: number = 1,
     filter: string,
-    params = new HttpParams()
+    listFavorites: boolean
   ): Observable<Thought[]> {
     const itensPerPage = 6;
-    params = params.set('_page', page).set('_limit', itensPerPage);
+    let params = new HttpParams()
+      .set('_page', page)
+      .set('_limit', itensPerPage);
 
     if (filter.trim().length > 2) {
       params = params.set('q', filter);
+    }
+
+    if (listFavorites) {
+      params = params.set('favorite', true);
     }
 
     return this.http.get<Thought[]>(this.apiUrl, { params });
@@ -46,12 +52,6 @@ export class ThoughtsService {
     const url = `${this.apiUrl}/${id}`;
 
     return this.http.delete<Thought>(url);
-  }
-
-  listFavoriteThougths(page: number, filter: string): Observable<Thought[]> {
-    let params = new HttpParams().set('favorite', true);
-
-    return this.listThoughts(page, filter, params);
   }
 
   changeFavoriteThought(thought: Thought): Observable<Thought> {
