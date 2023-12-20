@@ -10,6 +10,7 @@ import { ThoughtsService } from 'src/app/services/thoughts.service';
 })
 export class ListThoughtsComponent implements OnInit, OnDestroy {
   listThoughts: Thought[] = [];
+  listFavorites: Thought[] = [];
   currentPage = 1;
   hasMoreThoughts: boolean = true;
   filter: string = '';
@@ -51,7 +52,7 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
       });
   }
 
-  listFavorites() {
+  getListFavorites() {
     this.shouldListFavorites = !this.shouldListFavorites;
     this.searchThoughts();
   }

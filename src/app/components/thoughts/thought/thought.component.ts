@@ -16,6 +16,8 @@ export class ThoughtComponent {
     favorite: false,
   };
 
+  @Input() listFavorites: Thought[] = [];
+
   constructor(private thoughtService: ThoughtsService) {}
 
   thoughtLength(): string {
