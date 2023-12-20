@@ -11,16 +11,21 @@ import { ThoughtsService } from 'src/app/services/thoughts.service';
 })
 export class ListThoughtsComponent implements OnInit, OnDestroy {
   listThoughts: Thought[] = [];
-  currentPage = 1;
   hasMoreThoughts: boolean = true;
   filter: string = '';
-  shouldListFavorites: boolean = false;
-  $onDestroy = new Subject<boolean>();
+
+  private currentPage = 1;
+  private $onDestroy = new Subject<boolean>();
+  private isListingFavorites: boolean = false;
 
   constructor(
     private thoughtService: ThoughtsService,
     private router: Router
   ) {}
+
+  get listTitle(): string {
+    return this.isListingFavorites ? 'Meus Favoritos' : 'Meu Mural';
+  }
 
   ngOnInit(): void {
     this.loadMoreThougths();
@@ -32,14 +37,14 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
   }
 
   getListFavorites() {
-    this.shouldListFavorites = !this.shouldListFavorites;
+    this.isListingFavorites = !this.isListingFavorites;
     this.searchThoughts();
   }
 
   searchThoughts() {
     this.resetSearch();
     this.thoughtService
-      .listThoughts(this.currentPage++, this.filter, this.shouldListFavorites)
+      .listThoughts(this.currentPage++, this.filter, this.isListingFavorites)
       .pipe(takeUntil(this.$onDestroy))
       .subscribe((resultListThoughts) => {
         this.listThoughts = [...resultListThoughts];
@@ -48,7 +53,7 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
 
   loadMoreThougths() {
     this.thoughtService
-      .listThoughts(this.currentPage++, this.filter, this.shouldListFavorites)
+      .listThoughts(this.currentPage++, this.filter, this.isListingFavorites)
       .pipe(takeUntil(this.$onDestroy))
       .subscribe((resultListThoughts) => {
         this.listThoughts.push(...resultListThoughts);
@@ -64,7 +69,7 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
   }
 
   onFavoriteUpdated(thought: Thought): void {
-    if (this.shouldListFavorites && !thought.favorite) {
+    if (this.isListingFavorites && !thought.favorite) {
       this.listThoughts.splice(this.listThoughts.indexOf(thought), 1);
     }
   }
