@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { Thought } from 'src/app/interfaces/thoughts';
 import { ThoughtsService } from 'src/app/services/thoughts.service';
@@ -16,7 +17,10 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
   shouldListFavorites: boolean = false;
   $onDestroy = new Subject<boolean>();
 
-  constructor(private thoughtService: ThoughtsService) {}
+  constructor(
+    private thoughtService: ThoughtsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadMoreThougths();
@@ -46,7 +50,6 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
     this.thoughtService
       .listThoughts(this.currentPage++, this.filter, this.shouldListFavorites)
       .pipe(takeUntil(this.$onDestroy))
-
       .subscribe((resultListThoughts) => {
         this.listThoughts.push(...resultListThoughts);
 
@@ -54,6 +57,10 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
           this.hasMoreThoughts = false;
         }
       });
+  }
+
+  reloadComponent(): void {
+    this.router.navigate([this.router.url]);
   }
 
   onFavoriteUpdated(thought: Thought): void {

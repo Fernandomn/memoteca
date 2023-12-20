@@ -17,7 +17,7 @@
     <h2 class="ff-inter">Meu Mural</h2>
 
     <div class="botoes">
-      <button class="botao">Meu Mural</button>
+      <button class="botao" (click)="reloadComponent()">Meu Mural</button>
       <button class="botao" (click)="getListFavorites()">Meus Favoritos</button>
       <button class="botao" routerLink="/criarPensamento">
         Novo pensamento
@@ -30,7 +30,7 @@
       <app-thought
         [thought]="thought"
         (favoriteUpdated)="onFavoriteUpdated($event)"
-        ></app-thought>
+      ></app-thought>
     </div>
   </div>
 </section>
