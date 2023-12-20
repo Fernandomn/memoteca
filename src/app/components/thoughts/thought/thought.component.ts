@@ -29,6 +29,6 @@ export class ThoughtComponent {
   }
 
   changeFavorite(): void {
-    this.thoughtService.changeFavorite(this.thought).subscribe();
+    this.thoughtService.changeFavoriteThought(this.thought).subscribe();
   }
 }

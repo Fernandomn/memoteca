@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Thought } from 'src/app/interfaces/thoughts';
 import { ThoughtsService } from 'src/app/services/thoughts.service';
 
@@ -7,11 +8,12 @@ import { ThoughtsService } from 'src/app/services/thoughts.service';
   templateUrl: './list-thoughts.component.html',
   styleUrls: ['./list-thoughts.component.css'],
 })
-export class ListThoughtsComponent implements OnInit {
+export class ListThoughtsComponent implements OnInit, OnDestroy {
   listThoughts: Thought[] = [];
   currentPage = 1;
   hasMoreThoughts: boolean = true;
   filter: string = '';
+  $onDestroy = new Subject<boolean>();
 
   constructor(private thoughtService: ThoughtsService) {}
 
@@ -19,10 +21,16 @@ export class ListThoughtsComponent implements OnInit {
     this.loadMoreThougths();
   }
 
+  ngOnDestroy(): void {
+    this.$onDestroy.next(true);
+    this.$onDestroy.complete();
+  }
+
   searchThoughts() {
     this.resetSearch();
     this.thoughtService
       .listThoughts(this.currentPage++, this.filter)
+      .pipe(takeUntil(this.$onDestroy))
       .subscribe((resultListThoughts) => {
         this.listThoughts = resultListThoughts;
       });
@@ -31,6 +39,8 @@ export class ListThoughtsComponent implements OnInit {
   loadMoreThougths() {
     this.thoughtService
       .listThoughts(this.currentPage++, this.filter)
+      .pipe(takeUntil(this.$onDestroy))
+
       .subscribe((resultListThoughts) => {
         this.listThoughts.push(...resultListThoughts);
 
@@ -38,6 +48,16 @@ export class ListThoughtsComponent implements OnInit {
           this.hasMoreThoughts = false;
         }
       });
+  }
+
+  listFavorites() {
+    this.resetSearch();
+    this.thoughtService
+      .listFavoriteThougths(this.currentPage, this.filter)
+      .pipe(takeUntil(this.$onDestroy))
+      .subscribe(
+        (listFavoriteThoughts) => (this.listThoughts = listFavoriteThoughts)
+      );
   }
 
   private resetSearch() {
