@@ -19,9 +19,18 @@ export class ListThoughtsComponent implements OnInit {
     this.loadMoreThougths();
   }
 
+  searchThoughts() {
+    this.resetSearch();
+    this.thoughtService
+      .listThoughts(this.currentPage++, this.filter)
+      .subscribe((resultListThoughts) => {
+        this.listThoughts = resultListThoughts;
+      });
+  }
+
   loadMoreThougths() {
     this.thoughtService
-      .listThoughts(this.currentPage++)
+      .listThoughts(this.currentPage++, this.filter)
       .subscribe((resultListThoughts) => {
         this.listThoughts.push(...resultListThoughts);
 
@@ -29,5 +38,10 @@ export class ListThoughtsComponent implements OnInit {
           this.hasMoreThoughts = false;
         }
       });
+  }
+
+  private resetSearch() {
+    this.hasMoreThoughts = true;
+    this.currentPage = 1;
   }
 }

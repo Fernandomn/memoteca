@@ -9,6 +9,7 @@
         id=""
         autofocus
         [(ngModel)]="filter"
+        (keyup)="searchThoughts()"
       />
       <img src="/assets/imagens/lupa.png" alt="Lupa" />
     </div>

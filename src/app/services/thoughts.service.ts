@@ -11,12 +11,15 @@ export class ThoughtsService {
 
   constructor(private http: HttpClient) {}
 
-  listThoughts(page: number = 1): Observable<Thought[]> {
-    //GET /posts?_page=7&_limit=20
+  listThoughts(page: number = 1, filter: string): Observable<Thought[]> {
     const itensPerPage = 6;
     let params = new HttpParams()
       .set('_page', page)
       .set('_limit', itensPerPage);
+
+    if (filter.trim().length > 2) {
+      params = params.set('q', filter);
+    }
 
     return this.http.get<Thought[]>(this.apiUrl, { params });
   }
