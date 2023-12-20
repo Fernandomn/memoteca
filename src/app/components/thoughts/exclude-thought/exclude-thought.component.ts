@@ -9,7 +9,13 @@ import { ThoughtsService } from 'src/app/services/thoughts.service';
   styleUrls: ['./exclude-thought.component.css'],
 })
 export class ExcludeThoughtComponent implements OnInit {
-  thought: Thought = { id: '', content: '', author: '', model: 'modelo1' };
+  thought: Thought = {
+    id: '',
+    content: '',
+    author: '',
+    model: 'modelo1',
+    favorite: false,
+  };
 
   constructor(
     private thoughtService: ThoughtsService,

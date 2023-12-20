@@ -14,11 +14,23 @@
 
   <div class="acoes">
     <button
+      class="botao-favorito"
+      routerLink="/pensamentos/editarPensamento/{{ thought.id }}"
+    >
+      <img
+        src="/assets/imagens/icone-favorito-{{ changeFavoriteIcon() }}.png"
+        alt="favorito {{ changeFavoriteIcon() }}"
+        srcset=""
+      />
+    </button>
+
+    <button
       class="botao-editar"
       routerLink="/pensamentos/editarPensamento/{{ thought.id }}"
     >
       <img src="/assets/imagens/icone-editar.png" alt="editar" srcset="" />
     </button>
+
     <button
       class="botao-excluir"
       routerLink="/pensamentos/excluirPensamento/{{ thought.id }}"

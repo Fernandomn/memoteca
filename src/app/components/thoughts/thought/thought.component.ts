@@ -12,14 +12,18 @@ export class ThoughtComponent {
     content: 'I love Angular',
     author: 'Nay',
     model: 'modelo3',
+    favorite: false,
   };
 
   constructor() {}
 
   thoughtLength(): string {
-    if (this.thought.content && this.thought.content.length >= 256) {
-      return 'pensamento-g';
-    }
-    return 'pensamento-p';
+    return this.thought.content && this.thought.content.length >= 256
+      ? 'pensamento-g'
+      : 'pensamento-p';
+  }
+
+  changeFavoriteIcon(): string {
+    return !this.thought.favorite ? 'inativo' : 'ativo';
   }
 }

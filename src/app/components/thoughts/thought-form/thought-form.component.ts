@@ -17,6 +17,7 @@ export class ThoughtFormComponent implements OnInit {
     content: '',
     author: '',
     model: 'modelo1',
+    favorite: false,
   };
 
   form!: FormGroup;
@@ -58,6 +59,7 @@ export class ThoughtFormComponent implements OnInit {
         ]),
       ],
       model: [this.thought.model],
+      favorite: [this.thought.favorite],
     });
   }
 
@@ -72,7 +74,6 @@ export class ThoughtFormComponent implements OnInit {
       this.thoughtService
         .createThought({ ...this.form.value, id: uuidv4() })
         .subscribe((result) => {
-          console.log(result);
           this.router.navigate(['/listarPensamento']);
         });
     }
@@ -82,7 +83,6 @@ export class ThoughtFormComponent implements OnInit {
     this.thoughtService
       .editThought({ ...this.form.value, id: this.thought.id })
       .subscribe((result) => {
-        console.log(result);
         this.router.navigate(['/listarPensamento']);
       });
   }
