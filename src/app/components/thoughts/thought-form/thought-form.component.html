@@ -1,4 +1,4 @@
-<section class="container ff-inter" [ngClass]="thoughtActionClass()">
+<section class="container ff-inter form-container">
   <header class="header">
     <h2>
       {{ thought.id ? "Editar" : "Adicionar" }} um <br />
@@ -6,7 +6,7 @@
     </h2>
   </header>
 
-  <form [formGroup]="form">
+  <form [formGroup]="form" *ngIf="form">
     <label for="content">Pensamento</label>
     <input
       class="input"
@@ -97,7 +97,7 @@
         <div class="modelo modelo2 ff-roboto-mono">
           <img
             src="../../../../assets/imagens/modelo2.png"
-            alt="ASpas azul claro"
+            alt="Aspas azul claro"
             srcset=""
           />
           <p class="conteudo">{{ form.get("content")?.value }}</p>
@@ -125,7 +125,7 @@
         <div class="modelo modelo3 ff-roboto-mono">
           <img
             src="../../../../assets/imagens/modelo3.png"
-            alt="ASpas azul claro"
+            alt="Aspas azul claro"
             srcset=""
           />
           <p class="conteudo">{{ form.get("content")?.value }}</p>

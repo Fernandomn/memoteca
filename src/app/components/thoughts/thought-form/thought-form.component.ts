@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { Thought } from 'src/app/interfaces/thoughts';
 import { ThoughtsService } from 'src/app/services/thoughts.service';
 import { v4 as uuidv4 } from 'uuid';
 import { lowCaseValidator } from '../lowCaseValidators';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-thought-form',
@@ -20,9 +20,9 @@ export class ThoughtFormComponent implements OnInit, OnDestroy {
     model: 'modelo1',
     favorite: false,
   };
-
   form!: FormGroup;
-  $onDestroy = new Subject<boolean>();
+
+  private $onDestroy = new Subject<boolean>();
 
   constructor(
     private thoughtService: ThoughtsService,
@@ -75,13 +75,7 @@ export class ThoughtFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  thoughtActionClass(): string {
-    return this.thought.id ? 'editar-pensamentos' : 'criar-pensamentos';
-  }
-
   createThougth() {
-    console.log(this.form.status);
-
     if (this.form.valid) {
       this.thoughtService
         .createThought({ ...this.form.value, id: uuidv4() })
