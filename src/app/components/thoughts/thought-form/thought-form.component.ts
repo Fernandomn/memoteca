@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -12,7 +12,7 @@ import { lowCaseValidator } from '../lowCaseValidators';
   templateUrl: './thought-form.component.html',
   styleUrls: ['./thought-form.component.css'],
 })
-export class ThoughtFormComponent implements OnInit, OnDestroy {
+export class ThoughtFormComponent implements OnInit, OnDestroy, AfterViewInit {
   thought: Thought = {
     id: '',
     content: '',
@@ -46,6 +46,14 @@ export class ThoughtFormComponent implements OnInit, OnDestroy {
     } else {
       this.createForm();
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.form.reset({
+      content: this.thought.content,
+      author: this.thought.author,
+      model: this.thought.model,
+    });
   }
 
   ngOnDestroy(): void {
