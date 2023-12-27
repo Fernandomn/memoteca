@@ -69,9 +69,11 @@ export class ListThoughtsComponent implements OnInit, OnDestroy {
   }
 
   onFavoriteUpdated(thought: Thought): void {
-    if (this.isListingFavorites && !thought.favorite) {
-      this.listThoughts.splice(this.listThoughts.indexOf(thought), 1);
-    }
+    this.thoughtService.updateFavoriteThought(thought).subscribe(() => {
+      if (this.isListingFavorites && !thought.favorite) {
+        this.listThoughts.splice(this.listThoughts.indexOf(thought), 1);
+      }
+    });
   }
 
   private resetSearch() {

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Thought } from 'src/app/interfaces/thoughts';
-import { ThoughtsService } from 'src/app/services/thoughts.service';
 
 @Component({
   selector: 'app-thought',
@@ -18,7 +17,7 @@ export class ThoughtComponent {
 
   @Output() favoriteUpdated = new EventEmitter();
 
-  constructor(private thoughtService: ThoughtsService) {}
+  constructor() {}
 
   thoughtLength(): string {
     return this.thought.content && this.thought.content.length >= 256
@@ -31,8 +30,6 @@ export class ThoughtComponent {
   }
 
   updateFavorite(): void {
-    this.thoughtService
-      .updateFavoriteThought(this.thought)
-      .subscribe(() => this.favoriteUpdated.emit(this.thought));
+    this.favoriteUpdated.emit(this.thought);
   }
 }
